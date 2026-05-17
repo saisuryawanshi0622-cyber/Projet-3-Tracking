@@ -2,15 +2,26 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*", // Allows any domain to connect. Change this to your GitHub Pages URL for better security.
+        methods: ["GET", "POST"]
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send('Smart Chip Backend is running perfectly! 🚀');
+});
 
 // In-memory store for sessions
 // Structure: { sessionId: { hostSocketId: string, lastLocation: {lat, lng, timestamp} } }

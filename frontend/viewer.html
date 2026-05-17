@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Share - Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+    <div id="viewer-overlay" class="glass-container overlay active">
+        <h1>View Location</h1>
+        <p>Enter the session ID to track live location</p>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="input-session-id" placeholder="e.g. 123456" class="input-field">
+        <button id="btn-track" class="btn primary">Start Tracking</button>
+        <p id="viewer-status"></p>
+        <div style="margin-top: 2rem;">
+            <a href="./index.html" class="link">Go to Home</a>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="tracking-info" class="glass-panel hidden">
+        <h3>Tracking <span id="display-session-id"></span></h3>
+        <p class="location-text">Location: <span id="location-name">Fetching...</span></p>
+        <p>Last updated: <span id="last-updated">Waiting...</span></p>
+        <button id="btn-stop-tracking" class="btn secondary">Stop</button>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/viewer.js"></script>
+</body>
+
+</html>

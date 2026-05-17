@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Share</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="glass-container">
+        <h1>Live Location Share</h1>
+        <p>Share your real-time location securely.</p>
+
+        <div id="status-container">
+            <p id="status-text">Not sharing</p>
+            <div id="loading" class="hidden"></div>
+        </div>
+
+        <div id="session-info" class="hidden">
+            <p>Your Session ID:</p>
+            <h2 id="session-id"></h2>
+            <p class="small-text">Share this ID with the viewer or send them this link:</p>
+            <a id="share-link" href="#" target="_blank" class="link url-link">Open Viewer Link</a>
+        </div>
+
+        <button id="btn-share" class="btn primary">Share My Location</button>
+        <button id="btn-stop" class="btn danger hidden">Stop Sharing</button>
+
+        <div style="margin-top: 2rem;">
+            <a href="./viewer.html" class="link">Go to Viewer Page</a>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/share.js"></script>
+</body>
+
+</html>
