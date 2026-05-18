@@ -1,4 +1,6 @@
-const socket = io();
+// ⚠️ IMPORTANT: Replace this URL with your actual Render backend URL
+const BACKEND_URL = 'https://smart-chip-2-backend.onrender.com'; 
+const socket = io(BACKEND_URL);
 
 const inputSessionId = document.getElementById('input-session-id');
 const btnTrack = document.getElementById('btn-track');

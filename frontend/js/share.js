@@ -1,4 +1,6 @@
-const socket = io();
+// ⚠️ IMPORTANT: Replace this URL with your actual Render backend URL
+const BACKEND_URL = 'https://smart-chip-2-backend.onrender.com';
+const socket = io(BACKEND_URL);
 
 const btnShare = document.getElementById('btn-share');
 const btnStop = document.getElementById('btn-stop');
@@ -31,7 +33,7 @@ function startSharing() {
         (position) => {
             setupSession();
             updateLocation(position);
-            
+
             // Watch for changes continuously
             watchId = navigator.geolocation.watchPosition(
                 updateLocation,
@@ -65,7 +67,7 @@ function updateLocation(position) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
-    
+
     // We also emit immediately on initial fix or big changes if we want,
     // but the 3 second interval will handle regular updates.
 }
@@ -73,13 +75,13 @@ function updateLocation(position) {
 function setupSession() {
     // Generate a 6-digit numeric session ID
     currentSessionId = Math.floor(100000 + Math.random() * 900000).toString();
-    
+
     sessionIdEl.innerText = currentSessionId;
-    
+
     const viewerUrl = `${window.location.origin}/viewer.html?session=${currentSessionId}`;
     shareLink.href = viewerUrl;
     shareLink.innerText = viewerUrl;
-    
+
     sessionInfo.classList.remove('hidden');
 
     // Join room for this session
@@ -91,23 +93,23 @@ function stopSharing() {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
     }
-    
+
     if (locationInterval !== null) {
         clearInterval(locationInterval);
         locationInterval = null;
     }
-    
+
     if (currentSessionId) {
         socket.emit('stop-session', currentSessionId);
         currentSessionId = null;
     }
-    
+
     lastLocation = null;
-    
+
     sessionInfo.classList.add('hidden');
     btnStop.classList.add('hidden');
     btnShare.classList.remove('hidden');
-    
+
     loading.classList.add('hidden');
     statusText.innerText = 'Not sharing';
 }
@@ -116,8 +118,8 @@ function handleError(error) {
     loading.classList.add('hidden');
     btnShare.classList.remove('hidden');
     btnStop.classList.add('hidden');
-    
-    switch(error.code) {
+
+    switch (error.code) {
         case error.PERMISSION_DENIED:
             statusText.innerText = "Error: Permission denied.";
             break;
